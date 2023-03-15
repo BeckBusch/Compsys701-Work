@@ -1,5 +1,5 @@
 Flow report for Nios_Sys_1
-Wed Mar 15 15:52:55 2023
+Wed Mar 15 16:21:44 2023
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -40,7 +40,7 @@ refer to the applicable agreement for further details.
 +-------------------------------------------------------------------------------+
 ; Flow Summary                                                                  ;
 +---------------------------------+---------------------------------------------+
-; Flow Status                     ; Successful - Wed Mar 15 15:52:45 2023       ;
+; Flow Status                     ; Successful - Wed Mar 15 16:21:38 2023       ;
 ; Quartus Prime Version           ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                   ; Nios_Sys_1                                  ;
 ; Top-level Entity Name           ; Nios_Sys_1                                  ;
@@ -67,7 +67,7 @@ refer to the applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 03/15/2023 15:49:19 ;
+; Start date & time ; 03/15/2023 16:19:26 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; Nios_Sys_1          ;
 +-------------------+---------------------+
@@ -78,7 +78,7 @@ refer to the applicable agreement for further details.
 +-------------------------------------+-------------------------------------------------------------+---------------+-------------+------------+
 ; Assignment Name                     ; Value                                                       ; Default Value ; Entity Name ; Section Id ;
 +-------------------------------------+-------------------------------------------------------------+---------------+-------------+------------+
-; COMPILER_SIGNATURE_ID               ; 10995770589208.167884855810108                              ; --            ; --          ; --         ;
+; COMPILER_SIGNATURE_ID               ; 10995770589208.167885036613140                              ; --            ; --          ; --         ;
 ; MAX_CORE_JUNCTION_TEMP              ; 85                                                          ; --            ; --          ; --         ;
 ; MIN_CORE_JUNCTION_TEMP              ; 0                                                           ; --            ; --          ; --         ;
 ; MISC_FILE                           ; niosBoard/synthesis/../niosBoard.cmp                        ; --            ; --          ; --         ;
@@ -102,11 +102,11 @@ refer to the applicable agreement for further details.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:28     ; 1.0                     ; 5067 MB             ; 00:00:16                           ;
-; Fitter               ; 00:02:45     ; 1.1                     ; 7611 MB             ; 00:01:57                           ;
-; Assembler            ; 00:00:08     ; 1.0                     ; 4874 MB             ; 00:00:03                           ;
-; Timing Analyzer      ; 00:00:09     ; 2.2                     ; 5349 MB             ; 00:00:10                           ;
-; Total                ; 00:03:30     ; --                      ; --                  ; 00:02:26                           ;
+; Analysis & Synthesis ; 00:00:25     ; 1.0                     ; 5075 MB             ; 00:00:13                           ;
+; Fitter               ; 00:01:36     ; 1.1                     ; 7684 MB             ; 00:01:24                           ;
+; Assembler            ; 00:00:05     ; 1.0                     ; 4873 MB             ; 00:00:03                           ;
+; Timing Analyzer      ; 00:00:05     ; 3.1                     ; 5348 MB             ; 00:00:09                           ;
+; Total                ; 00:02:11     ; --                      ; --                  ; 00:01:49                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
