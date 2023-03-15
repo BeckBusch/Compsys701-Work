@@ -11,17 +11,17 @@ entity Nios_Sys_1 is
 end entity Nios_Sys_1;
 
 architecture structure of Nios_Sys_1 is
-	component Nios_V1 is
+	component niosBoard is
 		port (
 			clk_clk                            : in  std_logic                    := 'X'; -- clk
 			reset_reset_n                      : in  std_logic                    := 'X'; -- reset_n
 			led_pio_external_connection_export : out std_logic_vector(7 downto 0)         -- export
 		);
-	end component Nios_V1;
+	end component niosBoard;
 	
 	
 begin 
-	u0 : component Nios_V1
+	u0 : component niosBoard
 		port map (
 			clk_clk                            => CLOCK_50,
 			reset_reset_n                      => KEY(0),
