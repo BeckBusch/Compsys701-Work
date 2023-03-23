@@ -1,0 +1,3 @@
+14:26:22 **** Clean-only build of configuration Nios II for project Lab_1_Part_2_bsp ****
+make clean 
+[BSP clean complete]
