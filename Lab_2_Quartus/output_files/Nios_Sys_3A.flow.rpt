@@ -1,5 +1,5 @@
 Flow report for Nios_Sys_3A
-Thu Mar 23 15:28:21 2023
+Thu Mar 23 15:41:55 2023
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -37,24 +37,29 @@ refer to the applicable agreement for further details.
 
 
 
-+---------------------------------------------------------------------------+
-; Flow Summary                                                              ;
-+-----------------------------+---------------------------------------------+
-; Flow Status                 ; Flow Failed - Thu Mar 23 15:28:21 2023      ;
-; Quartus Prime Version       ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
-; Revision Name               ; Nios_Sys_3A                                 ;
-; Top-level Entity Name       ; Nios_Sys_3A                                 ;
-; Family                      ; Cyclone V                                   ;
-; Device                      ; 5CSEMA5F31C6                                ;
-; Timing Models               ; Final                                       ;
-; Logic utilization (in ALMs) ; N/A until Partition Merge                   ;
-; Total registers             ; N/A until Partition Merge                   ;
-; Total pins                  ; N/A until Partition Merge                   ;
-; Total virtual pins          ; N/A until Partition Merge                   ;
-; Total block memory bits     ; N/A until Partition Merge                   ;
-; Total PLLs                  ; N/A until Partition Merge                   ;
-; Total DLLs                  ; N/A until Partition Merge                   ;
-+-----------------------------+---------------------------------------------+
++-------------------------------------------------------------------------------+
+; Flow Summary                                                                  ;
++---------------------------------+---------------------------------------------+
+; Flow Status                     ; Successful - Thu Mar 23 15:41:55 2023       ;
+; Quartus Prime Version           ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
+; Revision Name                   ; Nios_Sys_3A                                 ;
+; Top-level Entity Name           ; Nios_Sys_3A                                 ;
+; Family                          ; Cyclone V                                   ;
+; Device                          ; 5CSEMA5F31C6                                ;
+; Timing Models                   ; Final                                       ;
+; Logic utilization (in ALMs)     ; N/A                                         ;
+; Total registers                 ; 2389                                        ;
+; Total pins                      ; 51                                          ;
+; Total virtual pins              ; 0                                           ;
+; Total block memory bits         ; 175,744                                     ;
+; Total DSP Blocks                ; 3                                           ;
+; Total HSSI RX PCSs              ; 0                                           ;
+; Total HSSI PMA RX Deserializers ; 0                                           ;
+; Total HSSI TX PCSs              ; 0                                           ;
+; Total HSSI PMA TX Serializers   ; 0                                           ;
+; Total PLLs                      ; 1                                           ;
+; Total DLLs                      ; 0                                           ;
++---------------------------------+---------------------------------------------+
 
 
 +-----------------------------------------+
@@ -62,34 +67,34 @@ refer to the applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 03/23/2023 15:28:14 ;
+; Start date & time ; 03/23/2023 15:41:23 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; Nios_Sys_3A         ;
 +-------------------+---------------------+
 
 
-+------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Flow Non-Default Global Settings                                                                                                                     ;
-+-------------------------------------+------------------------------------------------------------------+---------------+----------------+------------+
-; Assignment Name                     ; Value                                                            ; Default Value ; Entity Name    ; Section Id ;
-+-------------------------------------+------------------------------------------------------------------+---------------+----------------+------------+
-; COMPILER_SIGNATURE_ID               ; 10995770589208.167953849312392                                   ; --            ; --             ; --         ;
-; MAX_CORE_JUNCTION_TEMP              ; 85                                                               ; --            ; --             ; --         ;
-; MIN_CORE_JUNCTION_TEMP              ; 0                                                                ; --            ; --             ; --         ;
-; MISC_FILE                           ; Nios_System_3A/synthesis/../Nios_System_3A.cmp                   ; --            ; --             ; --         ;
-; MISC_FILE                           ; Nios_System_3A/synthesis/../../Nios_System_3A.qsys               ; --            ; --             ; --         ;
-; PARTITION_COLOR                     ; -- (Not supported for targeted family)                           ; --            ; --             ; Top        ;
-; PARTITION_FITTER_PRESERVATION_LEVEL ; -- (Not supported for targeted family)                           ; --            ; --             ; Top        ;
-; PARTITION_NETLIST_TYPE              ; -- (Not supported for targeted family)                           ; --            ; --             ; Top        ;
-; POWER_BOARD_THERMAL_MODEL           ; None (CONSERVATIVE)                                              ; --            ; --             ; --         ;
-; POWER_PRESET_COOLING_SOLUTION       ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW                            ; --            ; --             ; --         ;
-; PROJECT_OUTPUT_DIRECTORY            ; output_files                                                     ; --            ; --             ; --         ;
-; SLD_FILE                            ; Nios_System_3A/synthesis/Nios_System_3A.regmap                   ; --            ; --             ; --         ;
-; SLD_FILE                            ; Nios_System_3A/synthesis/Nios_System_3A.debuginfo                ; --            ; --             ; --         ;
-; SLD_INFO                            ; QSYS_NAME Nios_System_3A HAS_SOPCINFO 1 GENERATION_ID 1679537862 ; --            ; Nios_System_3A ; --         ;
-; SOPCINFO_FILE                       ; Nios_System_3A/synthesis/../../Nios_System_3A.sopcinfo           ; --            ; --             ; --         ;
-; SYNTHESIS_ONLY_QIP                  ; On                                                               ; --            ; --             ; --         ;
-+-------------------------------------+------------------------------------------------------------------+---------------+----------------+------------+
++------------------------------------------------------------------------------------------------------------------------------------------------+
+; Flow Non-Default Global Settings                                                                                                               ;
++-------------------------------------+---------------------------------------------------------------+---------------+-------------+------------+
+; Assignment Name                     ; Value                                                         ; Default Value ; Entity Name ; Section Id ;
++-------------------------------------+---------------------------------------------------------------+---------------+-------------+------------+
+; COMPILER_SIGNATURE_ID               ; 10995770589208.167953928310088                                ; --            ; --          ; --         ;
+; MAX_CORE_JUNCTION_TEMP              ; 85                                                            ; --            ; --          ; --         ;
+; MIN_CORE_JUNCTION_TEMP              ; 0                                                             ; --            ; --          ; --         ;
+; MISC_FILE                           ; Nios_Sys_3A/synthesis/../Nios_Sys_3A.cmp                      ; --            ; --          ; --         ;
+; MISC_FILE                           ; Nios_Sys_3A/synthesis/../../Nios_Sys_3A.qsys                  ; --            ; --          ; --         ;
+; PARTITION_COLOR                     ; -- (Not supported for targeted family)                        ; --            ; --          ; Top        ;
+; PARTITION_FITTER_PRESERVATION_LEVEL ; -- (Not supported for targeted family)                        ; --            ; --          ; Top        ;
+; PARTITION_NETLIST_TYPE              ; -- (Not supported for targeted family)                        ; --            ; --          ; Top        ;
+; POWER_BOARD_THERMAL_MODEL           ; None (CONSERVATIVE)                                           ; --            ; --          ; --         ;
+; POWER_PRESET_COOLING_SOLUTION       ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW                         ; --            ; --          ; --         ;
+; PROJECT_OUTPUT_DIRECTORY            ; output_files                                                  ; --            ; --          ; --         ;
+; SLD_FILE                            ; Nios_Sys_3A/synthesis/Nios_Sys_3A.regmap                      ; --            ; --          ; --         ;
+; SLD_FILE                            ; Nios_Sys_3A/synthesis/Nios_Sys_3A.debuginfo                   ; --            ; --          ; --         ;
+; SLD_INFO                            ; QSYS_NAME Nios_Sys_3A HAS_SOPCINFO 1 GENERATION_ID 1679539232 ; --            ; --          ; --         ;
+; SOPCINFO_FILE                       ; Nios_Sys_3A/synthesis/../../Nios_Sys_3A.sopcinfo              ; --            ; --          ; --         ;
+; SYNTHESIS_ONLY_QIP                  ; On                                                            ; --            ; --          ; --         ;
++-------------------------------------+---------------------------------------------------------------+---------------+-------------+------------+
 
 
 +--------------------------------------------------------------------------------------------------------------------------+
@@ -97,8 +102,8 @@ refer to the applicable agreement for further details.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:08     ; 1.0                     ; 4870 MB             ; 00:00:04                           ;
-; Total                ; 00:00:08     ; --                      ; --                  ; 00:00:04                           ;
+; Analysis & Synthesis ; 00:00:29     ; 1.0                     ; 5089 MB             ; 00:00:18                           ;
+; Total                ; 00:00:29     ; --                      ; --                  ; 00:00:18                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
