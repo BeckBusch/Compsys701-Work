@@ -11,10 +11,10 @@ entity Nios_Sys_2A is
 	port (CLOCK_50 : in std_logic;
 		  KEY : in std_logic_vector(3 downto 0);   -- changed
 		  SW : in std_logic_vector(7 downto 0);    -- new
-		  HEX0 : in std_logic_vector(6 downto 0);  --new
-		  HEX1 : in std_logic_vector(6 downto 0);  --new
-		  HEX2 : in std_logic_vector(6 downto 0);  --new
-		  HEX3 : in std_logic_vector(6 downto 0);  --new
+		  HEX0 : out std_logic_vector(6 downto 0);  --new
+		  HEX1 : out std_logic_vector(6 downto 0);  --new
+		  HEX2 : out std_logic_vector(6 downto 0);  --new
+		  HEX3 : out std_logic_vector(6 downto 0);  --new
 		  LEDR : out std_logic_vector(7 downto 0);
 		  DRAM_DQ : inout std_logic_vector(15 downto 0);
 		  DRAM_ADDR : out std_logic_vector(12 downto 0);
@@ -26,17 +26,17 @@ end entity Nios_Sys_2A;
 
 
 architecture Structure of Nios_Sys_2A is
-	component Nios_System_1A is
+	component Nios_System_A1 is
 		port (
 			
 			led_pio_external_connection_export : out   std_logic_vector(7 downto 0);                     -- export
 			
 			button_pio_external_connection_export : in    std_logic_vector(3 downto 0)  := (others => 'X');  -- export
 			switch_pio_external_connection_export : in std_logic_vector(7 downto 0);
-			segment_1_pio_external_connection_export : in std_logic_vector(6 downto 0);
-			segment_2_pio_external_connection_export : in std_logic_vector(6 downto 0);
-			segment_3_pio_external_connection_export : in std_logic_vector(6 downto 0);
-			segment_4_pio_external_connection_export : in std_logic_vector(6 downto 0);
+			segment_1_pio_external_connection_export : out std_logic_vector(6 downto 0);
+			segment_2_pio_external_connection_export : out std_logic_vector(6 downto 0);
+			segment_3_pio_external_connection_export : out std_logic_vector(6 downto 0);
+			segment_4_pio_external_connection_export : out std_logic_vector(6 downto 0);
 			
 			sdram_wire_addr                    : out   std_logic_vector(12 downto 0);                    -- addr
 			sdram_wire_ba                      : out   std_logic_vector(1 downto 0);                     -- ba
@@ -51,10 +51,10 @@ architecture Structure of Nios_Sys_2A is
 			clocks_ref_clk_clk                 : in    std_logic                     := 'X';             -- clk
 			clocks_ref_reset_reset             : in    std_logic                     := 'X'              -- reset
 		);
-	end component Nios_System_1A;
+	end component Nios_System_A1;
 
 begin 
-	u0 : component Nios_System_1A
+	u0 : component Nios_System_A1
 		port map (
 			led_pio_external_connection_export => LEDR, -- led_pio_external_connection.export
 			button_pio_external_connection_export => KEY, -- button_pio_external_connection_export
