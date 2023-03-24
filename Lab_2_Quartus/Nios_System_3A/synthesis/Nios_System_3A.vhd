@@ -6,7 +6,7 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 
-entity Nios_Sys_3A is
+entity Nios_System_3A is
 	port (
 		button_pio_external_connection_export : in    std_logic_vector(1 downto 0)  := (others => '0'); -- button_pio_external_connection.export
 		clocks_ref_clk_clk                    : in    std_logic                     := '0';             --                 clocks_ref_clk.clk
@@ -23,9 +23,9 @@ entity Nios_Sys_3A is
 		sdram_wire_ras_n                      : out   std_logic;                                        --                               .ras_n
 		sdram_wire_we_n                       : out   std_logic                                         --                               .we_n
 	);
-end entity Nios_Sys_3A;
+end entity Nios_System_3A;
 
-architecture rtl of Nios_Sys_3A is
+architecture rtl of Nios_System_3A is
 	component Nios_System_3A_BUTTON_pio is
 		port (
 			clk        : in  std_logic                     := 'X';             -- clk
@@ -55,8 +55,8 @@ architecture rtl of Nios_Sys_3A is
 
 	component SIMD_ADD_Instruction is
 		port (
-			result : out std_logic_vector(31 downto 0);                    -- result
 			datab  : in  std_logic_vector(31 downto 0) := (others => 'X'); -- datab
+			result : out std_logic_vector(31 downto 0);                    -- result
 			dataa  : in  std_logic_vector(31 downto 0) := (others => 'X')  -- dataa
 		);
 	end component SIMD_ADD_Instruction;
@@ -607,8 +607,8 @@ begin
 
 	simd_add_0 : component SIMD_ADD_Instruction
 		port map (
-			result => cpu_custom_instruction_master_comb_slave_translator0_ci_master_result, -- nios_custom_instruction_slave.result
-			datab  => cpu_custom_instruction_master_comb_slave_translator0_ci_master_datab,  --                              .datab
+			datab  => cpu_custom_instruction_master_comb_slave_translator0_ci_master_datab,  -- nios_custom_instruction_slave.datab
+			result => cpu_custom_instruction_master_comb_slave_translator0_ci_master_result, --                              .result
 			dataa  => cpu_custom_instruction_master_comb_slave_translator0_ci_master_dataa   --                              .dataa
 		);
 
@@ -1020,4 +1020,4 @@ begin
 
 	rst_controller_reset_out_reset_ports_inv <= not rst_controller_reset_out_reset;
 
-end architecture rtl; -- of Nios_Sys_3A
+end architecture rtl; -- of Nios_System_3A

@@ -1,28 +1,28 @@
 # # File gsaved with Nlview version 6.3.8  2013-12-19 bk=1.2992 VDI=34 GEI=35
 # 
 preplace inst Nios_System_3A.clocks.sys_pll -pg 1
-preplace inst Nios_System_3A.clocks -pg 1 -lvl 1 -y 420
+preplace inst Nios_System_3A.clocks -pg 1 -lvl 1 -y 370
 preplace inst Nios_System_3A.cpu.cpu -pg 1
-preplace inst Nios_System_3A.cpu -pg 1 -lvl 1 -y 70
-preplace inst Nios_System_3A.BUTTON_pio -pg 1 -lvl 2 -y 270
+preplace inst Nios_System_3A.cpu -pg 1 -lvl 1 -y 50
+preplace inst Nios_System_3A.BUTTON_pio -pg 1 -lvl 2 -y 260
 preplace inst Nios_System_3A -pg 1 -lvl 1 -y 40 -regy -20
-preplace inst Nios_System_3A.sdram -pg 1 -lvl 2 -y 390
-preplace inst Nios_System_3A.onchip_memory -pg 1 -lvl 1 -y 210
-preplace inst Nios_System_3A.high_res_timer -pg 1 -lvl 2 -y 70
+preplace inst Nios_System_3A.sdram -pg 1 -lvl 2 -y 380
+preplace inst Nios_System_3A.onchip_memory -pg 1 -lvl 1 -y 200
+preplace inst Nios_System_3A.high_res_timer -pg 1 -lvl 2 -y 60
 preplace inst Nios_System_3A.clocks.reset_from_locked -pg 1
-preplace inst Nios_System_3A.jtag_uart -pg 1 -lvl 2 -y 170
+preplace inst Nios_System_3A.jtag_uart -pg 1 -lvl 2 -y 160
 preplace inst Nios_System_3A.cpu.reset_bridge -pg 1
-preplace inst Nios_System_3A.LED_pio -pg 1 -lvl 2 -y 510
+preplace inst Nios_System_3A.LED_pio -pg 1 -lvl 2 -y 500
 preplace inst Nios_System_3A.cpu.clock_bridge -pg 1
-preplace netloc FAN_OUT<net_container>Nios_System_3A</net_container>(MASTER)clocks.sys_clk,(SLAVE)sdram.clk,(SLAVE)jtag_uart.clk,(SLAVE)cpu.clk,(SLAVE)high_res_timer.clk,(SLAVE)LED_pio.clk,(SLAVE)BUTTON_pio.clk,(SLAVE)onchip_memory.clk1) 1 0 2 250 30 670
 preplace netloc EXPORT<net_container>Nios_System_3A</net_container>(SLAVE)Nios_System_3A.clocks_ref_reset,(SLAVE)clocks.ref_reset) 1 0 1 NJ
 preplace netloc EXPORT<net_container>Nios_System_3A</net_container>(SLAVE)Nios_System_3A.clocks_ref_clk,(SLAVE)clocks.ref_clk) 1 0 1 NJ
-preplace netloc EXPORT<net_container>Nios_System_3A</net_container>(SLAVE)Nios_System_3A.sdram_wire,(SLAVE)sdram.wire) 1 0 2 NJ 520 NJ
-preplace netloc EXPORT<net_container>Nios_System_3A</net_container>(MASTER)clocks.sdram_clk,(MASTER)Nios_System_3A.clocks_sdram_clk) 1 1 2 NJ 500 NJ
-preplace netloc FAN_OUT<net_container>Nios_System_3A</net_container>(SLAVE)jtag_uart.irq,(SLAVE)BUTTON_pio.irq,(SLAVE)high_res_timer.irq,(MASTER)cpu.irq) 1 1 1 710
-preplace netloc EXPORT<net_container>Nios_System_3A</net_container>(SLAVE)LED_pio.external_connection,(SLAVE)Nios_System_3A.led_pio_external_connection) 1 0 2 NJ 540 NJ
-preplace netloc EXPORT<net_container>Nios_System_3A</net_container>(SLAVE)BUTTON_pio.external_connection,(SLAVE)Nios_System_3A.button_pio_external_connection) 1 0 2 NJ 300 NJ
-preplace netloc INTERCONNECT<net_container>Nios_System_3A</net_container>(MASTER)cpu.data_master,(MASTER)cpu.instruction_master,(SLAVE)cpu.debug_mem_slave,(SLAVE)high_res_timer.s1,(SLAVE)LED_pio.s1,(SLAVE)jtag_uart.avalon_jtag_slave,(SLAVE)sdram.s1,(SLAVE)onchip_memory.s1,(SLAVE)BUTTON_pio.s1) 1 0 2 230 340 650
-preplace netloc FAN_OUT<net_container>Nios_System_3A</net_container>(SLAVE)LED_pio.reset,(SLAVE)high_res_timer.reset,(MASTER)cpu.debug_reset_request,(SLAVE)jtag_uart.reset,(SLAVE)BUTTON_pio.reset,(SLAVE)sdram.reset,(SLAVE)cpu.reset,(SLAVE)onchip_memory.reset1) 1 0 2 270 320 690
-levelinfo -pg 1 0 200 1030
-levelinfo -hier Nios_System_3A 210 390 750 900
+preplace netloc FAN_OUT<net_container>Nios_System_3A</net_container>(SLAVE)cpu.clk,(SLAVE)jtag_uart.clk,(SLAVE)sdram.clk,(SLAVE)onchip_memory.clk1,(SLAVE)LED_pio.clk,(SLAVE)high_res_timer.clk,(MASTER)clocks.sys_clk,(SLAVE)BUTTON_pio.clk) 1 0 2 230 310 710
+preplace netloc EXPORT<net_container>Nios_System_3A</net_container>(SLAVE)Nios_System_3A.sdram_wire,(SLAVE)sdram.wire) 1 0 2 NJ 470 NJ
+preplace netloc EXPORT<net_container>Nios_System_3A</net_container>(SLAVE)Nios_System_3A.led_pio_external_connection,(SLAVE)LED_pio.external_connection) 1 0 2 NJ 530 NJ
+preplace netloc FAN_OUT<net_container>Nios_System_3A</net_container>(SLAVE)jtag_uart.irq,(SLAVE)BUTTON_pio.irq,(SLAVE)high_res_timer.irq,(MASTER)cpu.irq) 1 1 1 730
+preplace netloc EXPORT<net_container>Nios_System_3A</net_container>(SLAVE)BUTTON_pio.external_connection,(SLAVE)Nios_System_3A.button_pio_external_connection) 1 0 2 NJ 290 NJ
+preplace netloc INTERCONNECT<net_container>Nios_System_3A</net_container>(MASTER)cpu.data_master,(SLAVE)onchip_memory.s1,(SLAVE)BUTTON_pio.s1,(SLAVE)sdram.s1,(SLAVE)jtag_uart.avalon_jtag_slave,(SLAVE)LED_pio.s1,(MASTER)cpu.instruction_master,(SLAVE)cpu.debug_mem_slave,(SLAVE)high_res_timer.s1) 1 0 2 250 330 630
+preplace netloc EXPORT<net_container>Nios_System_3A</net_container>(MASTER)Nios_System_3A.clocks_sdram_clk,(MASTER)clocks.sdram_clk) 1 1 2 NJ 490 NJ
+preplace netloc FAN_OUT<net_container>Nios_System_3A</net_container>(SLAVE)BUTTON_pio.reset,(SLAVE)jtag_uart.reset,(SLAVE)cpu.reset,(SLAVE)sdram.reset,(SLAVE)LED_pio.reset,(SLAVE)onchip_memory.reset1,(MASTER)cpu.debug_reset_request,(SLAVE)high_res_timer.reset) 1 0 2 270 190 670
+levelinfo -pg 1 0 200 1050
+levelinfo -hier Nios_System_3A 210 390 770 920

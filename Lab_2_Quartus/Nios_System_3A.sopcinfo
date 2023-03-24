@@ -5,11 +5,11 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 18.1 625 (Future versions may contain additional information.) -->
- <!-- 2023.03.23.15:17:42 -->
+ <!-- 2023.03.24.13:10:01 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1679537862</value>
+  <value>1679616601</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -1857,16 +1857,16 @@ parameters are a RESULT of the module parameters. -->
    <type>nios_custom_instruction</type>
    <isStart>false</isStart>
    <port>
-    <name>result</name>
-    <direction>Output</direction>
-    <width>32</width>
-    <role>result</role>
-   </port>
-   <port>
     <name>datab</name>
     <direction>Input</direction>
     <width>32</width>
     <role>datab</role>
+   </port>
+   <port>
+    <name>result</name>
+    <direction>Output</direction>
+    <width>32</width>
+    <role>result</role>
    </port>
    <port>
     <name>dataa</name>
