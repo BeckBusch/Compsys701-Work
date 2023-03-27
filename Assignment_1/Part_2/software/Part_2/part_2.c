@@ -8,8 +8,17 @@
 #include <stdio.h>
 #include "system.h"
 #include "altera_avalon_pio_regs.h"
+ // Header files added for using high resolution timer
+#include "altera_avalon_timer_regs.h"
+#include "sys/alt_timestamp.h"
 
- // Init Matrices
+// define array size
+#define arrN 10
+
+// declare function  
+void Matrix_Operations(int A[arrN][arrN], int B[arrN][arrN], int C[arrN][arrN], int OP);
+
+// Init Matrices
 int matrixA[10][10] = {
 	{  6, 18,  1, 13, 20, 17, 15, 12, 17,  5 },
 	{  2,  3, 13,  8,  2, 11, 11, 16, 15,  8 },
@@ -46,22 +55,42 @@ int matrixC[10][10] = {
 	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 } };
 
-int n = 10;
+// get array size in more usable format
+int n = arrN;
 
 int main() {
+	// declare timing variables
+	unsigned int timestamp_start_time, timestamp_end_time;
+	unsigned int timestamp_overhead_time, T1, T2;
+	int To_Measure = 0;
 
-	printf("This application performs NxN matrix operationtion\n");
+	printf("This application performs NxN matrix operations\n");
 
-	if (n < 2) {
+	if (n < 2) { // error is matrices are too small
 		printf("Error: Matrix size N below 2\nExiting with code 1");
 		return 1;
 	}
 
-	int switches = IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_0_7_BASE);
-	int switch0 = switches & 0b00000001;
-	int switch1 = switches & 0b00000010;
-	int opcode = switch0 + switch1 * 2;
+	// clear the two unused 7-seg displays
+	IOWR_ALTERA_AVALON_PIO_DATA(SEGMENT_2_BASE, 0b11111111);
+	IOWR_ALTERA_AVALON_PIO_DATA(SEGMENT_1_BASE, 0b11111111);
 
+	int switches = IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_0_7_BASE); // read the values of the switches
+	int opcode = switches & 0b00000011; // get the operation by filtering out unused switches
+
+	// set 7-seg displays to show switch input
+	if (switches & 0b00000010) {
+		IOWR_ALTERA_AVALON_PIO_DATA(SEGMENT_4_BASE, 0b11111001);
+	} else {
+		IOWR_ALTERA_AVALON_PIO_DATA(SEGMENT_4_BASE, 0b11000000);
+	}
+	if (switches & 0b00000001) {
+		IOWR_ALTERA_AVALON_PIO_DATA(SEGMENT_3_BASE, 0b11111001);
+	} else {
+		IOWR_ALTERA_AVALON_PIO_DATA(SEGMENT_3_BASE, 0b11000000);
+	}
+
+	// Print the operation to the terminal
 	switch (opcode) {
 	case 0:
 		printf("N is %d, the operation is None\n", n);
@@ -80,31 +109,49 @@ int main() {
 		break;
 
 	default:
-		printf("??? error");
+		printf("Op code error");
 		break;
 	}
 
-	printf("N is 10, the operation is yyy\n");
+	// Start timing code
+	if (alt_timestamp_start() < 0) {
+		printf("No timestamp device is available.\n");
+	} else {
+		// Sample the timestamp timer (for start time) 
+		timestamp_start_time = alt_timestamp();
 
-	Matrix_Operations(&matrixA, &matrixB, &matrixC, opcode);
+		Matrix_Operations(matrixA, matrixB, matrixC, opcode); // run actual function
 
+		// Sample the timestamp timer (for end time)
+		timestamp_end_time = alt_timestamp();
 
-	int matrix[2][3] = { {1, 4, 2}, {3, 6, 8} };
+		// Measure the time overhead to read the timestamp timer by subsequently
+		// calling alt_timestamp() back to back.
+		T1 = alt_timestamp();
+		T2 = alt_timestamp();
+		timestamp_overhead_time = T2 - T1;
 
-	int i, j;
-	for (i = 0; i < 2; i++) {
-		for (j = 0; j < 3; j++) {
-			printf("%d\n", matrix[i][j]);
+		// print out result matrix to stop compiler from ignoring the code
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				printf("%d", matrixC[i][j]);
+			}
 		}
+
+		// Print-out the Timestamp interval timer peripheral measurements.
+		printf("\ntimestamp_start_time = %u ticks\n", (unsigned int)(timestamp_start_time));
+		printf("timestamp_end_time = %u ticks\n\n", (unsigned int)(timestamp_end_time));
+		printf("timestamp measurement = %u ticks\n", (unsigned int)(timestamp_end_time - timestamp_start_time));
+		printf("timestamp measurement overhead = %u ticks\n", (unsigned int)(timestamp_overhead_time));
+		printf("Actual time  = %u ticks\n", (unsigned int)((timestamp_end_time - timestamp_start_time) - timestamp_overhead_time));
+		printf("Timestamp timer frequency = %u\n", (unsigned int)alt_timestamp_freq());
 	}
 
-
-	while (1) {
-	}
+	printf("This program is now complete");
 	return 0;
 }
 
-void Matrix_Operations(int* A, int* B, int* C, int OP) {
+void Matrix_Operations(int A[arrN][arrN], int B[arrN][arrN], int C[arrN][arrN], int OP) {
 
 	switch (OP) {
 	case 0:
@@ -114,6 +161,24 @@ void Matrix_Operations(int* A, int* B, int* C, int OP) {
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
 				C[i][j] = A[i][j] + B[i][j];
+			}
+		}
+		break;
+
+	case 2:
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				C[i][j] = A[i][j] - B[i][j];
+			}
+		}
+		break;
+
+	case 3:
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				for (int k = 0; k < n; k++) {
+					C[i][j] += A[i][k] * B[k][j];
+				}
 			}
 		}
 		break;

@@ -4,7 +4,7 @@
  * Machine generated for CPU 'cpu' in SOPC Builder design 'Nios_System_A1'
  * SOPC Builder design path: ../../Nios_System_A1.sopcinfo
  *
- * Generated: Fri Mar 24 17:47:48 NZDT 2023
+ * Generated: Mon Mar 27 19:30:48 NZDT 2023
  */
 
 /*
@@ -377,8 +377,8 @@
 
 #define ALT_INCLUDE_INSTRUCTION_RELATED_EXCEPTION_API
 #define ALT_MAX_FD 32
-#define ALT_SYS_CLK HIGH_RES_TIMER
-#define ALT_TIMESTAMP_CLK none
+#define ALT_SYS_CLK none
+#define ALT_TIMESTAMP_CLK HIGH_RES_TIMER
 
 
 /*
