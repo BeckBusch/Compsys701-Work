@@ -1,0 +1,38 @@
+# # File gsaved with Nlview version 6.3.8  2013-12-19 bk=1.2992 VDI=34 GEI=35
+# 
+preplace inst Nios_System_A1.BUTTON_pio -pg 1 -lvl 2 -y 270
+preplace inst Nios_System_A1.sdram -pg 1 -lvl 2 -y 990
+preplace inst Nios_System_A1.clocks.reset_from_locked -pg 1
+preplace inst Nios_System_A1.onchip_memory -pg 1 -lvl 1 -y 290
+preplace inst Nios_System_A1.cpu -pg 1 -lvl 1 -y 70
+preplace inst Nios_System_A1.Segment_1 -pg 1 -lvl 2 -y 490
+preplace inst Nios_System_A1.cpu.reset_bridge -pg 1
+preplace inst Nios_System_A1.Segment_2 -pg 1 -lvl 2 -y 590
+preplace inst Nios_System_A1.Segment_3 -pg 1 -lvl 2 -y 690
+preplace inst Nios_System_A1.high_res_timer -pg 1 -lvl 2 -y 70
+preplace inst Nios_System_A1.Segment_4 -pg 1 -lvl 2 -y 790
+preplace inst Nios_System_A1.jtag_uart -pg 1 -lvl 2 -y 170
+preplace inst Nios_System_A1 -pg 1 -lvl 1 -y 40 -regy -20
+preplace inst Nios_System_A1.Switches_0_7 -pg 1 -lvl 2 -y 890
+preplace inst Nios_System_A1.clocks.sys_pll -pg 1
+preplace inst Nios_System_A1.cpu.cpu -pg 1
+preplace inst Nios_System_A1.cpu.clock_bridge -pg 1
+preplace inst Nios_System_A1.clocks -pg 1 -lvl 1 -y 980
+preplace inst Nios_System_A1.LED_pio -pg 1 -lvl 2 -y 390
+preplace netloc INTERCONNECT<net_container>Nios_System_A1</net_container>(SLAVE)Segment_4.s1,(SLAVE)high_res_timer.s1,(SLAVE)Switches_0_7.s1,(MASTER)cpu.instruction_master,(MASTER)cpu.data_master,(SLAVE)LED_pio.s1,(SLAVE)BUTTON_pio.s1,(SLAVE)sdram.s1,(SLAVE)Segment_3.s1,(SLAVE)Segment_1.s1,(SLAVE)Segment_2.s1,(SLAVE)cpu.debug_mem_slave,(SLAVE)onchip_memory.s1,(SLAVE)jtag_uart.avalon_jtag_slave) 1 0 2 230 260 690
+preplace netloc EXPORT<net_container>Nios_System_A1</net_container>(SLAVE)Switches_0_7.external_connection,(SLAVE)Nios_System_A1.switch_pio_external_connection) 1 0 2 NJ 920 NJ
+preplace netloc EXPORT<net_container>Nios_System_A1</net_container>(SLAVE)Nios_System_A1.segment_4_pio_external_connection,(SLAVE)Segment_4.external_connection) 1 0 2 NJ 820 NJ
+preplace netloc EXPORT<net_container>Nios_System_A1</net_container>(SLAVE)Nios_System_A1.segment_1_pio_external_connection,(SLAVE)Segment_1.external_connection) 1 0 2 NJ 520 NJ
+preplace netloc EXPORT<net_container>Nios_System_A1</net_container>(SLAVE)Nios_System_A1.sdram_wire,(SLAVE)sdram.wire) 1 0 2 NJ 1080 NJ
+preplace netloc EXPORT<net_container>Nios_System_A1</net_container>(SLAVE)Segment_2.external_connection,(SLAVE)Nios_System_A1.segment_2_pio_external_connection) 1 0 2 NJ 620 NJ
+preplace netloc FAN_OUT<net_container>Nios_System_A1</net_container>(SLAVE)cpu.clk,(SLAVE)Segment_3.clk,(MASTER)clocks.sys_clk,(SLAVE)sdram.clk,(SLAVE)onchip_memory.clk1,(SLAVE)LED_pio.clk,(SLAVE)Switches_0_7.clk,(SLAVE)BUTTON_pio.clk,(SLAVE)high_res_timer.clk,(SLAVE)Segment_4.clk,(SLAVE)Segment_2.clk,(SLAVE)Segment_1.clk,(SLAVE)jtag_uart.clk) 1 0 2 250 30 670
+preplace netloc EXPORT<net_container>Nios_System_A1</net_container>(SLAVE)Nios_System_A1.led_pio_external_connection,(SLAVE)LED_pio.external_connection) 1 0 2 NJ 420 NJ
+preplace netloc EXPORT<net_container>Nios_System_A1</net_container>(SLAVE)clocks.ref_reset,(SLAVE)Nios_System_A1.clocks_ref_reset) 1 0 1 NJ
+preplace netloc FAN_OUT<net_container>Nios_System_A1</net_container>(SLAVE)onchip_memory.reset1,(SLAVE)LED_pio.reset,(MASTER)cpu.debug_reset_request,(SLAVE)Segment_3.reset,(SLAVE)Segment_1.reset,(SLAVE)sdram.reset,(SLAVE)Switches_0_7.reset,(SLAVE)high_res_timer.reset,(SLAVE)Segment_2.reset,(SLAVE)jtag_uart.reset,(SLAVE)cpu.reset,(SLAVE)Segment_4.reset,(SLAVE)BUTTON_pio.reset) 1 0 2 270 280 650
+preplace netloc EXPORT<net_container>Nios_System_A1</net_container>(SLAVE)clocks.ref_clk,(SLAVE)Nios_System_A1.clocks_ref_clk) 1 0 1 NJ
+preplace netloc EXPORT<net_container>Nios_System_A1</net_container>(SLAVE)BUTTON_pio.external_connection,(SLAVE)Nios_System_A1.button_pio_external_connection) 1 0 2 NJ 240 NJ
+preplace netloc EXPORT<net_container>Nios_System_A1</net_container>(SLAVE)Segment_3.external_connection,(SLAVE)Nios_System_A1.segment_3_pio_external_connection) 1 0 2 NJ 720 NJ
+preplace netloc EXPORT<net_container>Nios_System_A1</net_container>(MASTER)Nios_System_A1.clocks_sdram_clk,(MASTER)clocks.sdram_clk) 1 1 2 NJ 1100 NJ
+preplace netloc FAN_OUT<net_container>Nios_System_A1</net_container>(MASTER)cpu.irq,(SLAVE)high_res_timer.irq,(SLAVE)BUTTON_pio.irq,(SLAVE)jtag_uart.irq) 1 1 1 710
+levelinfo -pg 1 0 200 1050
+levelinfo -hier Nios_System_A1 210 390 770 920

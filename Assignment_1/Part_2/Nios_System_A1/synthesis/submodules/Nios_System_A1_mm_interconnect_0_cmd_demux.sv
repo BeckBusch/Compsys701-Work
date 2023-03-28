@@ -31,7 +31,7 @@
 //   ST_DATA_W:           106
 //   ST_CHANNEL_W:        12
 //   NUM_OUTPUTS:         12
-//   VALID_WIDTH:         1
+//   VALID_WIDTH:         12
 // ------------------------------------------
 
 //------------------------------------------
@@ -45,7 +45,7 @@ module Nios_System_A1_mm_interconnect_0_cmd_demux
     // -------------------
     // Sink
     // -------------------
-    input  [1-1      : 0]   sink_valid,
+    input  [12-1      : 0]   sink_valid,
     input  [106-1    : 0]   sink_data, // ST_DATA_W=106
     input  [12-1 : 0]   sink_channel, // ST_CHANNEL_W=12
     input                         sink_startofpacket,
@@ -162,84 +162,84 @@ module Nios_System_A1_mm_interconnect_0_cmd_demux
         src0_endofpacket   = sink_endofpacket;
         src0_channel       = sink_channel >> NUM_OUTPUTS;
 
-        src0_valid         = sink_channel[0] && sink_valid;
+        src0_valid         = sink_channel[0] && sink_valid[0];
 
         src1_data          = sink_data;
         src1_startofpacket = sink_startofpacket;
         src1_endofpacket   = sink_endofpacket;
         src1_channel       = sink_channel >> NUM_OUTPUTS;
 
-        src1_valid         = sink_channel[1] && sink_valid;
+        src1_valid         = sink_channel[1] && sink_valid[1];
 
         src2_data          = sink_data;
         src2_startofpacket = sink_startofpacket;
         src2_endofpacket   = sink_endofpacket;
         src2_channel       = sink_channel >> NUM_OUTPUTS;
 
-        src2_valid         = sink_channel[2] && sink_valid;
+        src2_valid         = sink_channel[2] && sink_valid[2];
 
         src3_data          = sink_data;
         src3_startofpacket = sink_startofpacket;
         src3_endofpacket   = sink_endofpacket;
         src3_channel       = sink_channel >> NUM_OUTPUTS;
 
-        src3_valid         = sink_channel[3] && sink_valid;
+        src3_valid         = sink_channel[3] && sink_valid[3];
 
         src4_data          = sink_data;
         src4_startofpacket = sink_startofpacket;
         src4_endofpacket   = sink_endofpacket;
         src4_channel       = sink_channel >> NUM_OUTPUTS;
 
-        src4_valid         = sink_channel[4] && sink_valid;
+        src4_valid         = sink_channel[4] && sink_valid[4];
 
         src5_data          = sink_data;
         src5_startofpacket = sink_startofpacket;
         src5_endofpacket   = sink_endofpacket;
         src5_channel       = sink_channel >> NUM_OUTPUTS;
 
-        src5_valid         = sink_channel[5] && sink_valid;
+        src5_valid         = sink_channel[5] && sink_valid[5];
 
         src6_data          = sink_data;
         src6_startofpacket = sink_startofpacket;
         src6_endofpacket   = sink_endofpacket;
         src6_channel       = sink_channel >> NUM_OUTPUTS;
 
-        src6_valid         = sink_channel[6] && sink_valid;
+        src6_valid         = sink_channel[6] && sink_valid[6];
 
         src7_data          = sink_data;
         src7_startofpacket = sink_startofpacket;
         src7_endofpacket   = sink_endofpacket;
         src7_channel       = sink_channel >> NUM_OUTPUTS;
 
-        src7_valid         = sink_channel[7] && sink_valid;
+        src7_valid         = sink_channel[7] && sink_valid[7];
 
         src8_data          = sink_data;
         src8_startofpacket = sink_startofpacket;
         src8_endofpacket   = sink_endofpacket;
         src8_channel       = sink_channel >> NUM_OUTPUTS;
 
-        src8_valid         = sink_channel[8] && sink_valid;
+        src8_valid         = sink_channel[8] && sink_valid[8];
 
         src9_data          = sink_data;
         src9_startofpacket = sink_startofpacket;
         src9_endofpacket   = sink_endofpacket;
         src9_channel       = sink_channel >> NUM_OUTPUTS;
 
-        src9_valid         = sink_channel[9] && sink_valid;
+        src9_valid         = sink_channel[9] && sink_valid[9];
 
         src10_data          = sink_data;
         src10_startofpacket = sink_startofpacket;
         src10_endofpacket   = sink_endofpacket;
         src10_channel       = sink_channel >> NUM_OUTPUTS;
 
-        src10_valid         = sink_channel[10] && sink_valid;
+        src10_valid         = sink_channel[10] && sink_valid[10];
 
         src11_data          = sink_data;
         src11_startofpacket = sink_startofpacket;
         src11_endofpacket   = sink_endofpacket;
         src11_channel       = sink_channel >> NUM_OUTPUTS;
 
-        src11_valid         = sink_channel[11] && sink_valid;
+        src11_valid         = sink_channel[11] && sink_valid[11];
 
     end
 

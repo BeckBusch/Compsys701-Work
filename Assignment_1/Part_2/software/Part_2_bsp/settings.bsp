@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>Mar 27, 2023 7:30:47 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1679898647801</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>28/03/2023 2:03:31 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1679965411475</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>C:\Users\beckb\Documents\GitHub\Compsys701-Labs\Assignment_1\Part_2\software\Part_2_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\Nios_System_A1.sopcinfo</SopcDesignFile>
