@@ -17,13 +17,11 @@ module Nios_System_A1_cpu (
 		input  wire        d_waitrequest,                       //                          .waitrequest
 		output wire        d_write,                             //                          .write
 		output wire [31:0] d_writedata,                         //                          .writedata
-		input  wire        d_readdatavalid,                     //                          .readdatavalid
 		output wire        debug_mem_slave_debugaccess_to_roms, //                          .debugaccess
 		output wire [27:0] i_address,                           //        instruction_master.address
 		output wire        i_read,                              //                          .read
 		input  wire [31:0] i_readdata,                          //                          .readdata
 		input  wire        i_waitrequest,                       //                          .waitrequest
-		input  wire        i_readdatavalid,                     //                          .readdatavalid
 		input  wire [31:0] irq,                                 //                       irq.irq
 		output wire        debug_reset_request,                 //       debug_reset_request.reset
 		input  wire [8:0]  debug_mem_slave_address,             //           debug_mem_slave.address
@@ -34,7 +32,18 @@ module Nios_System_A1_cpu (
 		output wire        debug_mem_slave_waitrequest,         //                          .waitrequest
 		input  wire        debug_mem_slave_write,               //                          .write
 		input  wire [31:0] debug_mem_slave_writedata,           //                          .writedata
-		output wire        dummy_ci_port                        // custom_instruction_master.readra
+		input  wire [31:0] E_ci_combo_result,                   // custom_instruction_master.result
+		output wire [4:0]  E_ci_combo_a,                        //                          .a
+		output wire [4:0]  E_ci_combo_b,                        //                          .b
+		output wire [4:0]  E_ci_combo_c,                        //                          .c
+		output wire [31:0] E_ci_combo_dataa,                    //                          .dataa
+		output wire [31:0] E_ci_combo_datab,                    //                          .datab
+		output wire        E_ci_combo_estatus,                  //                          .estatus
+		output wire [31:0] E_ci_combo_ipending,                 //                          .ipending
+		output wire [7:0]  E_ci_combo_n,                        //                          .n
+		output wire        E_ci_combo_readra,                   //                          .readra
+		output wire        E_ci_combo_readrb,                   //                          .readrb
+		output wire        E_ci_combo_writerc                   //                          .writerc
 	);
 
 	Nios_System_A1_cpu_cpu cpu (
@@ -48,13 +57,11 @@ module Nios_System_A1_cpu (
 		.d_waitrequest                       (d_waitrequest),                       //                          .waitrequest
 		.d_write                             (d_write),                             //                          .write
 		.d_writedata                         (d_writedata),                         //                          .writedata
-		.d_readdatavalid                     (d_readdatavalid),                     //                          .readdatavalid
 		.debug_mem_slave_debugaccess_to_roms (debug_mem_slave_debugaccess_to_roms), //                          .debugaccess
 		.i_address                           (i_address),                           //        instruction_master.address
 		.i_read                              (i_read),                              //                          .read
 		.i_readdata                          (i_readdata),                          //                          .readdata
 		.i_waitrequest                       (i_waitrequest),                       //                          .waitrequest
-		.i_readdatavalid                     (i_readdatavalid),                     //                          .readdatavalid
 		.irq                                 (irq),                                 //                       irq.irq
 		.debug_reset_request                 (debug_reset_request),                 //       debug_reset_request.reset
 		.debug_mem_slave_address             (debug_mem_slave_address),             //           debug_mem_slave.address
@@ -65,7 +72,18 @@ module Nios_System_A1_cpu (
 		.debug_mem_slave_waitrequest         (debug_mem_slave_waitrequest),         //                          .waitrequest
 		.debug_mem_slave_write               (debug_mem_slave_write),               //                          .write
 		.debug_mem_slave_writedata           (debug_mem_slave_writedata),           //                          .writedata
-		.dummy_ci_port                       (dummy_ci_port)                        // custom_instruction_master.readra
+		.E_ci_combo_result                   (E_ci_combo_result),                   // custom_instruction_master.result
+		.E_ci_combo_a                        (E_ci_combo_a),                        //                          .a
+		.E_ci_combo_b                        (E_ci_combo_b),                        //                          .b
+		.E_ci_combo_c                        (E_ci_combo_c),                        //                          .c
+		.E_ci_combo_dataa                    (E_ci_combo_dataa),                    //                          .dataa
+		.E_ci_combo_datab                    (E_ci_combo_datab),                    //                          .datab
+		.E_ci_combo_estatus                  (E_ci_combo_estatus),                  //                          .estatus
+		.E_ci_combo_ipending                 (E_ci_combo_ipending),                 //                          .ipending
+		.E_ci_combo_n                        (E_ci_combo_n),                        //                          .n
+		.E_ci_combo_readra                   (E_ci_combo_readra),                   //                          .readra
+		.E_ci_combo_readrb                   (E_ci_combo_readrb),                   //                          .readrb
+		.E_ci_combo_writerc                  (E_ci_combo_writerc)                   //                          .writerc
 	);
 
 endmodule

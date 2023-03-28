@@ -67,7 +67,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   </table>
   <table class="blueBar">
    <tr>
-    <td class="l">2023.03.28.13:57:17</td>
+    <td class="l">2023.03.28.16:32:33</td>
     <td class="r">Datasheet</td>
    </tr>
   </table>
@@ -694,6 +694,51 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
       </table>
      </td>
+    </tr>
+   </table>
+  </div>
+  <a name="module_SIMD_MULTI_0"> </a>
+  <div>
+   <hr/>
+   <h2>SIMD_MULTI_0</h2>SIMD_MULTI v1.0
+   <br/>
+   <div class="greydiv">
+    <table class="connectionboxes">
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_cpu">cpu</a>
+      </td>
+      <td class="from">custom_instruction_master&#160;&#160;</td>
+      <td class="main" rowspan="2">SIMD_MULTI_0</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;nios_custom_instruction_slave</td>
+     </tr>
+    </table>
+   </div>
+   <br/>
+   <br/>
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Parameters</h2>
+      <table>
+       <tr>
+        <td class="parametername">deviceFamily</td>
+        <td class="parametervalue">UNKNOWN</td>
+       </tr>
+       <tr>
+        <td class="parametername">generateLegacySim</td>
+        <td class="parametervalue">false</td>
+       </tr>
+      </table>
+     </td>
+    </tr>
+   </table>&#160;&#160;
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Software Assignments</h2>(none)</td>
     </tr>
    </table>
   </div>
@@ -1782,7 +1827,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clocks">clocks</a>
       </td>
       <td class="from">sys_clk&#160;&#160;</td>
-      <td class="main" rowspan="66">cpu</td>
+      <td class="main" rowspan="69">cpu</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;clk</td>
@@ -2120,6 +2165,22 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td class="to">&#160;&#160;reset</td>
      </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">custom_instruction_master&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_SIMD_MULTI_0">SIMD_MULTI_0</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;nios_custom_instruction_slave</td>
+     </tr>
     </table>
    </div>
    <br/>
@@ -2431,7 +2492,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">icache_size</td>
-        <td class="parametervalue">1024</td>
+        <td class="parametervalue">0</td>
        </tr>
        <tr>
         <td class="parametername">fa_cache_line</td>
@@ -2467,7 +2528,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">dcache_size</td>
-        <td class="parametervalue">16384</td>
+        <td class="parametervalue">0</td>
        </tr>
        <tr>
         <td class="parametername">dcache_tagramBlockType</td>
@@ -2715,7 +2776,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">dcache_size_derived</td>
-        <td class="parametervalue">16384</td>
+        <td class="parametervalue">0</td>
        </tr>
        <tr>
         <td class="parametername">breakSlave_derived</td>
@@ -2731,7 +2792,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">setting_bit31BypassDCache</td>
-        <td class="parametervalue">true</td>
+        <td class="parametervalue">false</td>
        </tr>
        <tr>
         <td class="parametername">translate_on</td>
@@ -2875,7 +2936,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">customInstSlavesSystemInfo</td>
-        <td class="parametervalue">&lt;info/&gt;</td>
+        <td class="parametervalue">&lt;info&gt;&lt;slave name="simd_multi_0" baseAddress="0" addressSpan="1" clockCycleType="COMBINATORIAL" /&gt;&lt;/info&gt;</td>
        </tr>
        <tr>
         <td class="parametername">customInstSlavesSystemInfo_nios_a</td>
@@ -2959,20 +3020,16 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
         <td class="parametervalue">28</td>
        </tr>
        <tr>
-        <td class="parametername">DCACHE_BYPASS_MASK</td>
-        <td class="parametervalue">0x80000000</td>
-       </tr>
-       <tr>
         <td class="parametername">DCACHE_LINE_SIZE</td>
-        <td class="parametervalue">32</td>
+        <td class="parametervalue">0</td>
        </tr>
        <tr>
         <td class="parametername">DCACHE_LINE_SIZE_LOG2</td>
-        <td class="parametervalue">5</td>
+        <td class="parametervalue">0</td>
        </tr>
        <tr>
         <td class="parametername">DCACHE_SIZE</td>
-        <td class="parametervalue">16384</td>
+        <td class="parametervalue">0</td>
        </tr>
        <tr>
         <td class="parametername">EXCEPTION_ADDR</td>
@@ -3024,19 +3081,15 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">ICACHE_LINE_SIZE</td>
-        <td class="parametervalue">32</td>
+        <td class="parametervalue">0</td>
        </tr>
        <tr>
         <td class="parametername">ICACHE_LINE_SIZE_LOG2</td>
-        <td class="parametervalue">5</td>
+        <td class="parametervalue">0</td>
        </tr>
        <tr>
         <td class="parametername">ICACHE_SIZE</td>
-        <td class="parametervalue">1024</td>
-       </tr>
-       <tr>
-        <td class="parametername">INITDA_SUPPORTED</td>
-        <td class="parametervalue"></td>
+        <td class="parametervalue">0</td>
        </tr>
        <tr>
         <td class="parametername">INST_ADDR_WIDTH</td>
@@ -3946,7 +3999,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   <table class="blueBar">
    <tr>
     <td class="l">generation took 0.00 seconds</td>
-    <td class="r">rendering took 0.02 seconds</td>
+    <td class="r">rendering took 0.03 seconds</td>
    </tr>
   </table>
  </body>

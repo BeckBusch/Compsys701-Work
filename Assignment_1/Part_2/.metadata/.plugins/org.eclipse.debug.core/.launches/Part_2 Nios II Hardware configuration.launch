@@ -5,7 +5,7 @@
 <stringAttribute key="byteStreamDeviceCableName" value="DE-SoC on localhost [USB-1]"/>
 <stringAttribute key="byteStreamDeviceDeviceID" value="2"/>
 <stringAttribute key="byteStreamDeviceInstanceID" value="0"/>
-<stringAttribute key="com.altera.sbtgui.launch.REMOTE_PORT" value="64124"/>
+<stringAttribute key="com.altera.sbtgui.launch.REMOTE_PORT" value="49956"/>
 <booleanAttribute key="downloadProgram" value="true"/>
 <stringAttribute key="elfFile" value="C:\Users\beckb\Documents\GitHub\Compsys701-Labs\Assignment_1\Part_2\software\Part_2\Part_2.elf"/>
 <stringAttribute key="org.eclipse.cdt.debug.mi.core.GDB_INIT" value=""/>
@@ -25,5 +25,6 @@
 <stringAttribute key="processorCableName" value="DE-SoC on localhost [USB-1]"/>
 <stringAttribute key="processorDeviceIndex" value="2"/>
 <stringAttribute key="processorInstanceId" value="0"/>
+<booleanAttribute key="resetHardware" value="false"/>
 <booleanAttribute key="runProgram" value="true"/>
 </launchConfiguration>

@@ -6,6 +6,7 @@
  */
 
 #include <stdio.h>
+#include <stdint.h>
 #include "system.h"
 #include "altera_avalon_pio_regs.h"
  // Header files added for using high resolution timer
@@ -16,10 +17,14 @@
 #define arrN 10
 
 // declare function  
-void Matrix_Operations(int A[arrN][arrN], int B[arrN][arrN], int C[arrN][arrN], int OP);
+void Matrix_Operations(uint16_t A[arrN][arrN], uint16_t B[arrN][arrN], uint16_t C[arrN][arrN], int OP);
+
+uint32_t inputA, inputB, outStore;
+uint16_t outputA, outputB;
 
 // Init Matrices
-int matrixA[10][10] = {
+
+uint16_t matrixA[10][10] = {
 	{  6, 18,  1, 13, 20, 17, 15, 12, 17,  5 },
 	{  2,  3, 13,  8,  2, 11, 11, 16, 15,  8 },
 	{  2, 13, 15, 17, 17, 12, 12, 19, 16,  0 },
@@ -31,7 +36,7 @@ int matrixA[10][10] = {
 	{ 17,  7, 19,  5,  0, 16, 12,  9, 13,  0 },
 	{  8, 12, 14,  6,  7,  3, 12,  5, 18,  4 } };
 
-int matrixB[10][10] = {
+uint16_t matrixB[10][10] = {
 	{ 10, 10,  3, 15, 16, 13,  7, 10,  0,  0 },
 	{ 17,  2,  9,  4,  6, 15,  3, 17,  1,  4 },
 	{ 14,  5,  1,  0, 12, 12, 15,  2, 19, 12 },
@@ -43,7 +48,7 @@ int matrixB[10][10] = {
 	{  7, 20, 19,  2,  1, 20, 11,  7, 20,  9 },
 	{ 20,  9,  1,  3,  1, 16, 16, 13, 18,  4 } };
 
-int matrixC[10][10] = {
+uint16_t matrixC[10][10] = {
 	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -59,13 +64,22 @@ int matrixC[10][10] = {
 int n = arrN;
 
 int main() {
+	/* Due to how the custom instruction pulls values from the array, the second array needs to be flipped.
+	this ensures that the correct values are pulled */
+	uint16_t matrixBFlipped[arrN][arrN]; // inverted array for custom instruction usage
+
+	 for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            matrixBFlipped[i][j] = matrixB[j][i];
+        }
+    }
+
 	// declare timing variables
 	unsigned int timestamp_start_time, timestamp_end_time;
 	unsigned int timestamp_overhead_time, T1, T2;
 	int To_Measure = 0;
 
 	printf("This application performs NxN matrix operations\n");
-
 	if (n < 2) { // error is matrices are too small
 		printf("Error: Matrix size N below 2\nExiting with code 1");
 		return 1;
@@ -120,7 +134,8 @@ int main() {
 		// Sample the timestamp timer (for start time) 
 		timestamp_start_time = alt_timestamp();
 
-		Matrix_Operations(matrixA, matrixB, matrixC, opcode); // run actual function
+		// Matrix_Operations(matrixA, matrixBF, matrixC, opcode); // default maths
+		Matrix_Operations(matrixA, matrixBFlipped, matrixC, opcode); // run actual stuff but flipped version for multiplication
 
 		// Sample the timestamp timer (for end time)
 		timestamp_end_time = alt_timestamp();
@@ -134,8 +149,9 @@ int main() {
 		// print out result matrix to stop compiler from ignoring the code
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
-				printf("%d", matrixC[i][j]);
+				printf("%d, ", matrixC[i][j]);
 			}
+			printf("\n");
 		}
 
 		// Print-out the Timestamp interval timer peripheral measurements.
@@ -151,7 +167,7 @@ int main() {
 	return 0;
 }
 
-void Matrix_Operations(int A[arrN][arrN], int B[arrN][arrN], int C[arrN][arrN], int OP) {
+void Matrix_Operations(uint16_t A[arrN][arrN], uint16_t B[arrN][arrN], uint16_t C[arrN][arrN], int OP) {
 
 	switch (OP) {
 	case 0:
@@ -172,16 +188,40 @@ void Matrix_Operations(int A[arrN][arrN], int B[arrN][arrN], int C[arrN][arrN], 
 			}
 		}
 		break;
-
-	case 3:
+	
+	/*
+	case 3: // multiplication with normal arithmetic
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
 				for (int k = 0; k < n; k++) {
-					C[i][j] += A[i][k] * B[k][j];
+					C[i][j] += A[i][k] * B[j][k];
 				}
 			}
 		}
 		break;
+	*/
+	///*
+	case 3: // Multiplication with custom instruction
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				for (int k = 0; k < n; k=k+2) {
+
+					inputA = (uint32_t)((A[i][k] << 16) | A[i][k+1]);
+					inputB = (uint32_t)((B[j][k] << 16) | B[j][k+1]);
+
+					outStore = ALT_CI_SIMD_MULTI_0(inputA, inputB);
+
+					outputA = outStore >> 16;
+					outputB = outStore;
+
+					//printf("out A: %d, out B: %d", outputA, outputB);
+					
+					C[i][j] += outputA + outputB;
+				}
+			}
+		}
+		break;
+	//*/
 	}
 
 }

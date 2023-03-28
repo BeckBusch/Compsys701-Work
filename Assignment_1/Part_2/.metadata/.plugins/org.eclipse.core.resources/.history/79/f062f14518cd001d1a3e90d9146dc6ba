@@ -1,0 +1,219 @@
+/*
+ * my_binary_leds.c
+ *
+ *  Created on: March 2023
+ *      Author: Morteza
+ */
+
+#include <stdio.h>
+#include <stdint.h>
+#include "system.h"
+#include "altera_avalon_pio_regs.h"
+ // Header files added for using high resolution timer
+#include "altera_avalon_timer_regs.h"
+#include "sys/alt_timestamp.h"
+
+// define array size
+#define arrN 10
+
+// declare function  
+void Matrix_Operations(int A[arrN][arrN], int B[arrN][arrN], int C[arrN][arrN], int OP);
+
+// Init Matrices
+uint16_t outStore[2];
+
+uint16_t matrixA[10][10] = {
+	{  6, 18,  1, 13, 20, 17, 15, 12, 17,  5 },
+	{  2,  3, 13,  8,  2, 11, 11, 16, 15,  8 },
+	{  2, 13, 15, 17, 17, 12, 12, 19, 16,  0 },
+	{  4,  2, 10,  5,  6,  3, 13, 20, 13, 18 },
+	{  8, 14, 18,  3, 10, 15,  9,  9,  2, 11 },
+	{ 12,  3,  9,  4,  3, 20, 11, 12,  5,  9 },
+	{ 19, 15, 16,  2,  3, 13,  6, 15,  2,  0 },
+	{  1,  3, 11, 15,  7, 16,  6, 12, 10,  8 },
+	{ 17,  7, 19,  5,  0, 16, 12,  9, 13,  0 },
+	{  8, 12, 14,  6,  7,  3, 12,  5, 18,  4 } };
+
+uint16_t matrixB[10][10] = {
+	{ 10, 10,  3, 15, 16, 13,  7, 10,  0,  0 },
+	{ 17,  2,  9,  4,  6, 15,  3, 17,  1,  4 },
+	{ 14,  5,  1,  0, 12, 12, 15,  2, 19, 12 },
+	{  0, 19,  1, 15, 10, 13,  1, 20, 20, 14 },
+	{  8,  8, 13,  5,  4, 13, 14, 17, 18,  0 },
+	{  1, 14, 18, 12,  1, 14, 18,  9, 15, 10 },
+	{  2,  9, 20, 15, 13, 18,  9,  9, 15, 11 },
+	{ 15, 17, 18, 11,  0,  9,  4, 18, 18, 16 },
+	{  7, 20, 19,  2,  1, 20, 11,  7, 20,  9 },
+	{ 20,  9,  1,  3,  1, 16, 16, 13, 18,  4 } };
+
+uint16_t matrixC[10][10] = {
+	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 } };
+
+// get array size in more usable format
+int n = arrN;
+
+int main() {
+	/* Due to how the custom instruction pulls values from the array, the second array needs to be flipped.
+	this ensures that the correct values are pulled */
+	uint16_t matrixBFlipped[arrN][arrN]; // inverted array for custom instruction usage
+
+	 for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            matrixBFlipped[j][i] = matrixBFlipped[i][j];
+        }
+    }
+
+	// declare timing variables
+	unsigned int timestamp_start_time, timestamp_end_time;
+	unsigned int timestamp_overhead_time, T1, T2;
+	int To_Measure = 0;
+	
+	
+printf("check");
+
+	printf("This application performs NxN matrix operations\n");
+
+	if (n < 2) { // error is matrices are too small
+		printf("Error: Matrix size N below 2\nExiting with code 1");
+		return 1;
+	}
+
+	// clear the two unused 7-seg displays
+	IOWR_ALTERA_AVALON_PIO_DATA(SEGMENT_2_BASE, 0b11111111);
+	IOWR_ALTERA_AVALON_PIO_DATA(SEGMENT_1_BASE, 0b11111111);
+
+	int switches = IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_0_7_BASE); // read the values of the switches
+	int opcode = switches & 0b00000011; // get the operation by filtering out unused switches
+	printf("%d", opcode);
+	// set 7-seg displays to show switch input
+	if (switches & 0b00000010) {
+		IOWR_ALTERA_AVALON_PIO_DATA(SEGMENT_4_BASE, 0b11111001);
+	} else {
+		IOWR_ALTERA_AVALON_PIO_DATA(SEGMENT_4_BASE, 0b11000000);
+	}
+	if (switches & 0b00000001) {
+		IOWR_ALTERA_AVALON_PIO_DATA(SEGMENT_3_BASE, 0b11111001);
+	} else {
+		IOWR_ALTERA_AVALON_PIO_DATA(SEGMENT_3_BASE, 0b11000000);
+	}
+
+	printf("check");
+
+	// Print the operation to the terminal
+	switch (opcode) {
+	case 0:
+		printf("N is %d, the operation is None\n", n);
+		break;
+
+	case 1:
+		printf("N is %d, the operation is Addition\n", n);
+		break;
+
+	case 2:
+		printf("N is %d, the operation is Subtraction\n", n);
+		break;
+
+	case 3:
+		printf("N is %d, the operation is Multiplication\n", n);
+		break;
+
+	default:
+		printf("Op code error");
+		break;
+	}
+printf("check");
+	// Start timing code
+	if (alt_timestamp_start() < 0) {
+		printf("No timestamp device is available.\n");
+	} else {
+		// Sample the timestamp timer (for start time) 
+		timestamp_start_time = alt_timestamp();
+
+		// Matrix_Operations(matrixA, matrixBF, matrixC, opcode); // default maths
+		Matrix_Operations(matrixA, matrixBFlipped, matrixC, opcode); // custom instruction
+
+		// Sample the timestamp timer (for end time)
+		timestamp_end_time = alt_timestamp();
+
+		// Measure the time overhead to read the timestamp timer by subsequently
+		// calling alt_timestamp() back to back.
+		T1 = alt_timestamp();
+		T2 = alt_timestamp();
+		timestamp_overhead_time = T2 - T1;
+
+		// print out result matrix to stop compiler from ignoring the code
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				printf("%d", matrixC[i][j]);
+			}
+		}
+
+		// Print-out the Timestamp interval timer peripheral measurements.
+		printf("\ntimestamp_start_time = %u ticks\n", (unsigned int)(timestamp_start_time));
+		printf("timestamp_end_time = %u ticks\n\n", (unsigned int)(timestamp_end_time));
+		printf("timestamp measurement = %u ticks\n", (unsigned int)(timestamp_end_time - timestamp_start_time));
+		printf("timestamp measurement overhead = %u ticks\n", (unsigned int)(timestamp_overhead_time));
+		printf("Actual time  = %u ticks\n", (unsigned int)((timestamp_end_time - timestamp_start_time) - timestamp_overhead_time));
+		printf("Timestamp timer frequency = %u\n", (unsigned int)alt_timestamp_freq());
+	}
+
+	printf("This program is now complete");
+	return 0;
+}
+
+void Matrix_Operations(int A[arrN][arrN], int B[arrN][arrN], int C[arrN][arrN], int OP) {
+
+	switch (OP) {
+	case 0:
+		break;
+
+	case 1:
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				C[i][j] = A[i][j] + B[i][j];
+			}
+		}
+		break;
+
+	case 2:
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				C[i][j] = A[i][j] - B[i][j];
+			}
+		}
+		break;
+	/* commented out default multiplication
+	case 3: // multiplication with normal arithmetic
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				for (int k = 0; k < n; k++) {
+					C[i][j] += A[i][k] * B[k][j];
+				}
+			}
+		}
+		break;
+	*/
+	case 3: // Multiplication with custom instruction
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				for (int k = 0; k < n; k+=2) {
+					outStore[0] = ALT_CI_SIMD_MULTI_0(A[i][k], B[j][k]);
+					C[i][j] += outStore[0] + outStore[1];
+				}
+			}
+		}
+		break;
+	}
+
+}
+
+
