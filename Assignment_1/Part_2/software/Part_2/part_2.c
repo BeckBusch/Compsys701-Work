@@ -1,15 +1,7 @@
-/*
- * my_binary_leds.c
- *
- *  Created on: March 2023
- *      Author: Morteza
- */
-
 #include <stdio.h>
 #include <stdint.h>
 #include "system.h"
 #include "altera_avalon_pio_regs.h"
- // Header files added for using high resolution timer
 #include "altera_avalon_timer_regs.h"
 #include "sys/alt_timestamp.h"
 
@@ -17,14 +9,12 @@
 #define arrN 10
 
 // declare function  
-void Matrix_Operations(uint16_t A[arrN][arrN], uint16_t B[arrN][arrN], uint16_t C[arrN][arrN], int OP);
+void Matrix_Operations(unsigned short A[arrN][arrN], unsigned short B[arrN][arrN], uint16_t C[arrN][arrN], int OP);
 
-uint32_t inputA, inputB, outStore;
-uint16_t outputA, outputB;
+int outStore;
 
 // Init Matrices
-
-uint16_t matrixA[10][10] = {
+unsigned short matrixA[10][10] = {
 	{  6, 18,  1, 13, 20, 17, 15, 12, 17,  5 },
 	{  2,  3, 13,  8,  2, 11, 11, 16, 15,  8 },
 	{  2, 13, 15, 17, 17, 12, 12, 19, 16,  0 },
@@ -36,7 +26,7 @@ uint16_t matrixA[10][10] = {
 	{ 17,  7, 19,  5,  0, 16, 12,  9, 13,  0 },
 	{  8, 12, 14,  6,  7,  3, 12,  5, 18,  4 } };
 
-uint16_t matrixB[10][10] = {
+unsigned short matrixB[10][10] = {
 	{ 10, 10,  3, 15, 16, 13,  7, 10,  0,  0 },
 	{ 17,  2,  9,  4,  6, 15,  3, 17,  1,  4 },
 	{ 14,  5,  1,  0, 12, 12, 15,  2, 19, 12 },
@@ -66,7 +56,7 @@ int n = arrN;
 int main() {
 	/* Due to how the custom instruction pulls values from the array, the second array needs to be flipped.
 	this ensures that the correct values are pulled */
-	uint16_t matrixBFlipped[arrN][arrN]; // inverted array for custom instruction usage
+	unsigned short matrixBFlipped[arrN][arrN]; // inverted array for custom instruction usage
 
 	 for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
@@ -167,7 +157,7 @@ int main() {
 	return 0;
 }
 
-void Matrix_Operations(uint16_t A[arrN][arrN], uint16_t B[arrN][arrN], uint16_t C[arrN][arrN], int OP) {
+void Matrix_Operations(unsigned short A[arrN][arrN], unsigned short B[arrN][arrN], uint16_t C[arrN][arrN], int OP) {
 
 	switch (OP) {
 	case 0:
@@ -205,18 +195,13 @@ void Matrix_Operations(uint16_t A[arrN][arrN], uint16_t B[arrN][arrN], uint16_t 
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
 				for (int k = 0; k < n; k=k+2) {
+					// we use pointer manipulation to get a 32 bit int pointer, 
+					// at the address of several 16 bit shorts
+					unsigned int valueA = *((unsigned int*)&A[i][k]);
 
-					inputA = (uint32_t)((A[i][k] << 16) | A[i][k+1]);
-					inputB = (uint32_t)((B[j][k] << 16) | B[j][k+1]);
+					unsigned int valueB = *((unsigned int*)&B[j][k]);
 
-					outStore = ALT_CI_SIMD_MULTI_0(inputA, inputB);
-
-					outputA = outStore >> 16;
-					outputB = outStore;
-
-					//printf("out A: %d, out B: %d", outputA, outputB);
-					
-					C[i][j] += outputA + outputB;
+					C[i][j] += ALT_CI_SIMD_MULTI_0(valueA, valueB);
 				}
 			}
 		}

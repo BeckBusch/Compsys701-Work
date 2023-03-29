@@ -41,12 +41,12 @@ From these results we can tell that increasing the Data cache has a decent impac
 ![Graph of average tick count vs cache sizes](graph.png)
 
 ## d)
-This result is very poor since I have to waste computational power calculating the inputs and outputs from the custom instruction. This is because my code does not pull two values at once from the array, and has to manually assemble them.
+This result isn't as good as it could be, since I have to waste computational power casting the inputs to a 32 bit pointer. This is because my code does not pull two values at once from the array, and has to manually 'assemble' them.
 
 | Instruction | Attempt 1 | Attempt 2 | Attempt 3 | Average |
 |-----------|---------|---------|---------|-------|
-| Custom Instruction | 941767 | 941695 | 941793 | 941751 |
-| Regular Code | 980338 | 980196 | 980263 | 980265 |
+| Custom Instruction | 569814 | 569725 | 569809 | 569783 |
+| Regular Code | 980258 | 980217 | 980277 | 980251 |
 
 ### Result with Custom Instruction
 
@@ -65,12 +65,12 @@ N is 10, the operation is Multiplication
 821, 1119, 1075, 855, 777, 1400, 1005, 932, 1310, 879, 
 844, 975, 973, 612, 637, 1348, 850, 954, 1271, 720, 
 
-timestamp_start_time = 391 ticks
-timestamp_end_time = 942776 ticks
+timestamp_start_time = 385 ticks
+timestamp_end_time = 570872 ticks
 
-timestamp measurement = 942385 ticks
-timestamp measurement overhead = 675 ticks
-Actual time  = 941710 ticks
+timestamp measurement = 570487 ticks
+timestamp measurement overhead = 673 ticks
+Actual time  = 569814 ticks
 Timestamp timer frequency = 50000000
 This program is now complete
 ```
@@ -140,3 +140,18 @@ Matrix B
 821	1119 1075 855 777 1400 1005	932	1310 879
 844	975	973	612	637	1348 850 954 1271 720
 ```
+
+
+This application performs NxN matrix operations
+N is 10, the operation is Multiplication
+Inputs A: 1179654, Inputs B: 1114122
+output: 1572891
+Out A: 24, Out B: 27
+Inputs A: 851969, Inputs B: 14
+output: 917518
+Out A: 14, Out B: 14
+Inputs A: 1114132, Inputs B: 65544
+output: 2424841
+Out A: 37, Out B: 9
+Inputs A: 786447, Inputs B: 983042
+output: 1769489
