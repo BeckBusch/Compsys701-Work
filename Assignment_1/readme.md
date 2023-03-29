@@ -2,15 +2,19 @@
 ## Beck Busch - bbus692 - 975040349
 
 # Task 2
+
 ## b)
 | N=10 | Addition | Subtraction | Multiplication |
 |------|----------|-------------|----------------|
 | Attempt 1 | 80859 | 81154 | 1021059 |
 | Attempt 2 | 80924 | 80918 | 1021107 |
 | Attempt 3 | 80858 | 80986 | 1021168 |
+
 ## c)
+The steps to run a storage test are as follows:  
 Change cpu settings > Generate .qip > Compile > Program > Generate BSP > Build and Run  
 Here is an example of the terminal output during a test:
+
 ```
 This application performs NxN matrix operations  
 N is 10, the operation is Multiplication  
@@ -24,8 +28,10 @@ Actual time  = 94145 ticks
 Timestamp timer frequency = 50000000
 This program is now complete
 ```
-### Matrix Multiplication Function with varying Cache sizes
 
+After running many different tests I got these results:
+
+### Matrix Multiplication Function with varying Cache sizes
 | Configuration | Attempt 1 | Attempt 2 | Attempt 3 |
 |---------------|-----------|-----------|-----------|
 | 1Kb Data, 0Kb Inst | 731269 | 731010 | 731192 |
@@ -41,16 +47,19 @@ From these results we can tell that increasing the Data cache has a decent impac
 ![Graph of average tick count vs cache sizes](graph.png)
 
 ## d)
+### Custom Instruction Usage
+My custom instruction takes 4 16 bit numbers as 2 32 bit inputs. It preforms two multiplication operations, then adds the products together. This result is returned as a 32 bit number. What this instruction is doing is preforming two multiplication operations in one instruction, essentially halving the time spent on multiplication.
+
 This result isn't as good as it could be, since I have to waste computational power casting the inputs to a 32 bit pointer. This is because my code does not pull two values at once from the array, and has to manually 'assemble' them.
 
 | Instruction | Attempt 1 | Attempt 2 | Attempt 3 | Average |
-|-----------|---------|---------|---------|-------|
+|-------------|-----------|-----------|-----------|---------|
 | Custom Instruction | 569814 | 569725 | 569809 | 569783 |
 | Regular Code | 980258 | 980217 | 980277 | 980251 |
 
+From these results we can see that using the custom instruction results in a 40% speed increase.
+
 ### Result with Custom Instruction
-
-
 ```
 This application performs NxN matrix operations
 N is 10, the operation is Multiplication
@@ -99,7 +108,6 @@ Timestamp timer frequency = 50000000
 This program is now complete
 ```
 
-
 ## Footnotes
 #### Test Matrices:
 ```
@@ -141,17 +149,3 @@ Matrix B
 844	975	973	612	637	1348 850 954 1271 720
 ```
 
-
-This application performs NxN matrix operations
-N is 10, the operation is Multiplication
-Inputs A: 1179654, Inputs B: 1114122
-output: 1572891
-Out A: 24, Out B: 27
-Inputs A: 851969, Inputs B: 14
-output: 917518
-Out A: 14, Out B: 14
-Inputs A: 1114132, Inputs B: 65544
-output: 2424841
-Out A: 37, Out B: 9
-Inputs A: 786447, Inputs B: 983042
-output: 1769489
