@@ -9,7 +9,7 @@
 #define arrN 10
 
 // declare function  
-void Matrix_Operations(unsigned short A[arrN][arrN], unsigned short B[arrN][arrN], uint16_t C[arrN][arrN], int OP);
+void Matrix_Operations(unsigned short A[arrN][arrN], unsigned short B[arrN][arrN], unsigned short BF[arrN][arrN], uint16_t C[arrN][arrN], int OP);
 
 int outStore;
 
@@ -125,7 +125,7 @@ int main() {
 		timestamp_start_time = alt_timestamp();
 
 		// Matrix_Operations(matrixA, matrixBF, matrixC, opcode); // default maths
-		Matrix_Operations(matrixA, matrixBFlipped, matrixC, opcode); // run actual stuff but flipped version for multiplication
+		Matrix_Operations(matrixA, matrixB, matrixBFlipped, matrixC, opcode); // run actual stuff but flipped version for multiplication
 
 		// Sample the timestamp timer (for end time)
 		timestamp_end_time = alt_timestamp();
@@ -157,13 +157,13 @@ int main() {
 	return 0;
 }
 
-void Matrix_Operations(unsigned short A[arrN][arrN], unsigned short B[arrN][arrN], uint16_t C[arrN][arrN], int OP) {
+void Matrix_Operations(unsigned short A[arrN][arrN], unsigned short B[arrN][arrN], unsigned short BF[arrN][arrN], uint16_t C[arrN][arrN], int OP) {
 
 	switch (OP) {
 	case 0:
 		break;
 
-	case 1:
+	case 1: // matrix addition
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
 				C[i][j] = A[i][j] + B[i][j];
@@ -171,7 +171,7 @@ void Matrix_Operations(unsigned short A[arrN][arrN], unsigned short B[arrN][arrN
 		}
 		break;
 
-	case 2:
+	case 2: // matrix subtraction
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
 				C[i][j] = A[i][j] - B[i][j];
@@ -190,23 +190,21 @@ void Matrix_Operations(unsigned short A[arrN][arrN], unsigned short B[arrN][arrN
 		}
 		break;
 	*/
-	///*
 	case 3: // Multiplication with custom instruction
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
 				for (int k = 0; k < n; k=k+2) {
 					// we use pointer manipulation to get a 32 bit int pointer, 
-					// at the address of several 16 bit shorts
+					// at the address of several 16 bit shorts.
+					// this resolves a 32 bit value where each half is a 16 bit number
 					unsigned int valueA = *((unsigned int*)&A[i][k]);
-
-					unsigned int valueB = *((unsigned int*)&B[j][k]);
+					unsigned int valueB = *((unsigned int*)&BF[j][k]);
 
 					C[i][j] += ALT_CI_SIMD_MULTI_0(valueA, valueB);
 				}
 			}
 		}
 		break;
-	//*/
 	}
 
 }
